@@ -229,14 +229,22 @@ The `.sync` modifier does not work with this prop, unlike `to-page`.
 
 **Default:** `undefined`
 
+### `is-utc`
+
+**Type:** Boolean
+
+**Description:** Treat all Date objects with UTC timezone.
+
+**Default:** `undefined`
+
 <!--
-### 
+###
 
-**Type:** 
+**Type:**
 
-**Description:** 
+**Description:**
 
-**Default:** 
+**Default:**
 -->
 
 
@@ -332,7 +340,7 @@ async move(arg, opts) => Promise
 | **opts.force** | *Boolean* | Force navigation even if the target months(s) are disabled |
 
 #### Returns
-  
+
 A **Promise** that *resolves* when the transition to the new set of month(s) is complete or *rejects* if target month(s) are disabled.
 
 #### Move by number of months
@@ -413,7 +421,7 @@ async focusDate(date, opts) => Promise
 | **opts.transition** | *String* | Transition type (`slide-h`, `slide-v`, `fade`, `none`). Note that this will override the calendar `transition` prop. |
 
 #### Returns
-  
+
 A **Promise** that *resolves* when the transition is complete or *rejects* if target month(s) are disabled.
 
 
@@ -438,11 +446,11 @@ A **Promise** that *resolves* when the transition is complete or *rejects* if ta
 ```
 
 <!--
-### 
+###
 
-**Description:** 
+**Description:**
 
-**Params:** 
+**Params:**
 -->
 
 ## Scoped Slots
@@ -505,9 +513,9 @@ A **Promise** that *resolves* when the transition is complete or *rejects* if ta
 **Description:** Calendar navigation header button on the right side for moving to the next page(s).
 
 <!--
-### 
+###
 
-**Description:** 
+**Description:**
 
-**Props:** 
+**Props:**
 -->

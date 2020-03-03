@@ -14,6 +14,7 @@ export const rootMixin = {
     isDark: Boolean,
     theme: Object,
     firstDayOfWeek: Number,
+    isUtc: Boolean,
     masks: Object,
     locale: [String, Object],
     minDate: null,
@@ -43,6 +44,7 @@ export const rootMixin = {
             id: this.locale,
             firstDayOfWeek: this.firstDayOfWeek,
             masks: this.masks,
+            isUtc: this.isUtc
           };
       // Return new locale
       return new Locale(config, this.$locales);

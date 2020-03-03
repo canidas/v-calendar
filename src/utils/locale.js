@@ -37,10 +37,11 @@ export function resolveConfig(config, locales) {
 
 export default class Locale {
   constructor(config, locales = defaultLocales) {
-    const { id, firstDayOfWeek, masks } = resolveConfig(config, locales);
+    const { id, firstDayOfWeek, masks, isUtc } = resolveConfig(config, locales);
     this.id = id;
     this.firstDayOfWeek = clamp(firstDayOfWeek, 1, daysInWeek);
     this.masks = masks;
+    this.isUtc = !!isUtc;
     this.dayNames = this.getDayNames('long');
     this.dayNamesShort = this.getDayNames('short');
     this.dayNamesShorter = this.dayNamesShort.map(s => s.substring(0, 2));
@@ -64,6 +65,13 @@ export default class Locale {
     return format(date, mask || this.masks.L, this);
   }
 
+  createDate(...args) {
+    if (this.isUtc) {
+      return new Date(Date.UTC(...args));
+    }
+    return new Date(...args);
+  }
+
   toDate(d, mask) {
     if (isDate(d)) {
       return new Date(d.getTime());
@@ -76,7 +84,7 @@ export default class Locale {
     }
     if (isObject(d)) {
       const date = new Date();
-      return new Date(
+      return this.createDate(
         d.year || date.getFullYear(),
         d.month || date.getMonth(),
         d.day || date.getDate(),
@@ -104,7 +112,7 @@ export default class Locale {
   getMonthDates(year = 2000) {
     const dates = [];
     for (let i = 0; i < 12; i++) {
-      dates.push(new Date(year, i, 15));
+      dates.push(this.createDate(year, i, 15));
     }
     return dates;
   }
@@ -278,7 +286,7 @@ export default class Locale {
         // Note: this might or might not be an actual month day
         //  We don't know how the UI wants to display various days,
         //  so we'll supply all the data we can
-        const date = new Date(year, month - 1, day);
+        const date = this.createDate(year, month - 1, day);
         const id = this.format(date, 'YYYY-MM-DD');
         const weekdayPosition = i;
         const weekdayPositionFromEnd = daysInWeek - i;
