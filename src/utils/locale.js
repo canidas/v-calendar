@@ -58,10 +58,19 @@ export default class Locale {
   }
 
   parse(dateStr, mask) {
-    return parse(dateStr, mask || this.masks.L, this);
+    let date = parse(dateStr, mask || this.masks.L, this);
+    if (this.isUtc && (!mask || !mask.some(m => m.includes('ZZ')))) {
+      // Fake timezone offset for fecha.js as ZZ is not used
+      date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    }
+    return date;
   }
 
   format(date, mask) {
+    if (this.isUtc) {
+      // Fake timezone offset for fecha.js as no UTC methods are used
+      date = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
+    }
     return format(date, mask || this.masks.L, this);
   }
 
