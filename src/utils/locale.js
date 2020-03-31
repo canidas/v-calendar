@@ -49,6 +49,11 @@ export default class Locale {
     this.monthNames = this.getMonthNames('long');
     this.monthNamesShort = this.getMonthNames('short');
     this.monthData = {};
+
+    this.DoFn = (D) => {
+      return D + [ 'th', 'st', 'nd', 'rd' ][ D % 10 > 3 ? 0 : (D - D % 10 !== 10) * D % 10 ];
+    };
+
     // Bind methods
     this.getMonthComps = this.getMonthComps.bind(this);
     this.parse = this.parse.bind(this);
