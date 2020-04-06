@@ -111,6 +111,7 @@ export default {
     dragAttribute: Object,
     selectAttribute: Object,
     attributes: Array,
+    inputEventName: { type: String, default: 'input' }
   },
   data() {
     return {
@@ -239,7 +240,7 @@ export default {
       this.refreshValue();
     },
     value_(val) {
-      this.$emit('input', val);
+      this.$emit(this.inputEventName, val);
       this.handleValueChange();
     },
     dragValue(val) {
